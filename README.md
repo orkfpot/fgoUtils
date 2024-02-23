@@ -3,6 +3,7 @@
 ## An Utility app for fgo with the goal of helping a user to navigate the information of fgo
 
 the functions I am planning to add are:
+some of these are a in progress to make parsing data easier
 
 ### parse data
 - create chara list
@@ -36,3 +37,5 @@ the functions I am planning to add are:
 	- gui?
 	- calc probability to beat quest before starting?
 
+
+I am using the data from https://api.atlasacademy.io/docs
