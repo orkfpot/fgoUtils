@@ -9,7 +9,20 @@ struct extraAssets
 	std::string asc4;
 };
 
-struct materials
+
+struct levellingMaterials
+{
+	std::string item1 = "";
+	std::string item2 = "";
+	std::string item3 = "";
+	std::string item4 = "";
+	std::string item5 = "";
+	int qp = 0;
+};
+
+
+
+struct reqMaterials
 {
 	levellingMaterials skill1;
 	levellingMaterials skill2;
@@ -26,38 +39,33 @@ struct materials
 	levellingMaterials ascension4;
 };
 
-struct levellingMaterials
+
+struct cardsHitCount
 {
-	std::string item1 = "";
-	std::string item2 = "";
-	std::string item3 = "";
-	std::string item4 = "";
-	std::string item5 = "";
-	int qp = 0;
+	int buster, arts, quick, extra;
 };
 
-
-class Servant()
+class Servant
 {
 private:
-	std::string[50] traits;
-	std::string[3] appendSkills;
-	std::string[3] passiveSkills;
-	std::string[3] skills;
+	std::string traits[50];
+	std::string appendSkills[3];
+	std::string passiveSkills[3];
+	std::string skills[3];
 	std::string name;
 	std::string gender;
-	char[5] cards;
+	std::string attribute;
+	char cards[5];
 	int rarity;
 	int classID;
 	int starAbsorb;
 	int starGen;
 	int ikChance;
-	int[120] atkGrowth;
-	int[120] hpGrowth;
-	int[120] xpGrowth;
-	int[15] bondGrowth;
-	int[4] hitCounts;
-	int[3] cards;
+	int atkGrowth[120];
+	int hpGrowth[120];
+	int xpGrowth[120];
+	int bondGrowth[15];
+	cardsHitCount hitCounts;
 	extraAssets assets;
-	materials materials;
-}
+	reqMaterials materials;
+};

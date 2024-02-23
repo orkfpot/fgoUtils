@@ -2,8 +2,8 @@
 
 ## An Utility app for fgo with the goal of helping a user to navigate the information of fgo
 
-the functions I am planning to add are:
-some of these are a in progress to make parsing data easier
+the functions I am planning to add are:<br />
+(some of these are a in progress to make parsing data easier)
 
 ### parse data
 - create chara list
@@ -11,6 +11,7 @@ some of these are a in progress to make parsing data easier
 - store chara data for each chara owned in game
 - create ce list
 - command code list
+- add dynamic update of data from api link
 
 
 
