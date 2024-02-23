@@ -1,10 +1,10 @@
-#FGO Utils
+# FGO Utils
 
-##An Utility app for fgo with the goal of helping a user to navigate the information of fgo
+## An Utility app for fgo with the goal of helping a user to navigate the information of fgo
 
-#the functions I am planning to add are:
+the functions I am planning to add are:
 
-parse data
+### parse data
 - create chara list
 - split files by chara?
 - store chara data for each chara owned in game
@@ -13,7 +13,7 @@ parse data
 
 
 
-grinding search
+### grinding search
 - list all levels
 - list avg loot drop
 - list avg loot drop per ap
@@ -24,7 +24,7 @@ grinding search
 
 
 
-damage calc
+### damage calc
 - apply ce to servants
 - apply command codes
 - select cards on field
