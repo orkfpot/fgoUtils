@@ -1,9 +1,12 @@
 # FGO Utils
 
-## An Utility app for fgo with the goal of helping a user to navigate the information of fgo
+## a Utility app for fgo with the goal of helping a user to navigate the information of fgo
 
 the functions I am planning to add are:<br />
 (some of these are a in progress to make parsing data easier)
+
+the code is not reasonably working yet
+
 
 ### parse data
 - create chara list
