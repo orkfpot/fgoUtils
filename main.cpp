@@ -5,44 +5,6 @@
 #include "Servant.h"
 
 
-//prints out one servant info right now
-//unless I forgot to update the comment
-
-//pretty sure this function has now been raplaced by Servant.init();
-int parseServants(std::ifstream &fp)
-{
-    std::string line;
-    if(!fp.is_open())
-    {
-        std::cout << "failed to open file" << std::endl;
-        return -1;
-    }
-    
-    int x=0;
-    
-    
-    while(getline(fp,line))
-    {
-        
-        std::cout << line << std::endl;
-
-        if(line.find("{") != std::string::npos)
-        {
-            x++;
-        }
-        if(line.find("}") !=std::string::npos)
-        {
-            x--;
-            if(x==0)
-                break;
-        }
-
-    }
-            
-    return 0;
-}
-
-
 int main()
 {
     std::ifstream servants;
@@ -58,11 +20,11 @@ int main()
 //    if(parseServants(servants)==-1)
 //    if(!Servant altria(servants, "Altria Pendragon")) 
     Servant gilgamesh;
-    gilgamesh.init(servants, "Gilgamesh");
-//    {
-//        std::cout << "parseServant failed";
-//        return -1;
-//    }
+    if(gilgamesh.init(servants, "Gilgamesh")==-1)
+    {
+        std::cout << "parseServant failed";
+        return -1;
+    }
 
 
     return 0;

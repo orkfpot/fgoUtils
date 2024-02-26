@@ -1,5 +1,6 @@
 #ifndef SERVANT
 #define SERVANT
+
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -7,20 +8,14 @@
 
 struct extraAssets
 {
-	std::string asc1;
-	std::string asc2;
-	std::string asc3;
-	std::string asc4;
+	std::string ascension[4];
+	std::string sprites[3];
 };
 
 
 struct levellingMaterials
 {
-	std::string item1 = "";
-	std::string item2 = "";
-	std::string item3 = "";
-	std::string item4 = "";
-	std::string item5 = "";
+	std::string items[5] = {"","","","",""};
 	int qp = 0;
 };
 
@@ -28,25 +23,29 @@ struct levellingMaterials
 
 struct reqMaterials
 {
-	levellingMaterials skill1;
-	levellingMaterials skill2;
-	levellingMaterials skill3;
-	levellingMaterials skill4;
-	levellingMaterials skill5;
-	levellingMaterials skill6;
-	levellingMaterials skill7;
-	levellingMaterials skill8;
-	levellingMaterials skill9;
-	levellingMaterials ascension1;
-	levellingMaterials ascension2;
-	levellingMaterials ascension3;
-	levellingMaterials ascension4;
+	levellingMaterials skills[9];
+	levellingMaterials ascensions[4];
+};
+
+// hit count based on card type
+// need to add distribution
+struct cardHits
+{
+	int buster, arts, quick, extra, np;
+	int busterDistr[10];
+	int artsDistr[10];
+	int quickDistr[10];
+	int extraDistr[10];
+	int npDistr[10];
 };
 
 
-struct cardsHitCount
+// assumes 3 effects for each skill
+// leave empty for no effect??
+struct skills
 {
-	int buster, arts, quick, extra;
+	std::string name, effect[3], description;
+	int effect[3][10];
 };
 
 
@@ -73,6 +72,8 @@ private:
 	extraAssets assets;
 	reqMaterials materials;
 public:
+	//returns 0 if successful
+	//returns -1 if failed
 	int init(std::ifstream &fp, std::string searchSubject);
 };
 
