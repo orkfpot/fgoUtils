@@ -42,6 +42,13 @@ the code is not reasonably working yet
 
 ### gui maybe ever
 
-
-
 I am using the data from https://api.atlasacademy.io/docs
+
+## Build instruction
+
+for Linux (I think it should work for any distribution)
+```
+git clone https://github.com/orkfpot/fgoUtils
+cd fgoUtils
+make
+```
