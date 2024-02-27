@@ -44,7 +44,7 @@ struct cardHits
 // leave empty for no effect??
 struct skills
 {
-	std::string name, effect[3], description;
+	std::string name, effectName[3], description;
 	int effect[3][10];
 };
 
@@ -68,7 +68,7 @@ private:
 	int hpGrowth[120];
 	int xpGrowth[120];
 	int bondGrowth[15];
-	cardsHitCount hitCounts;
+	cardHits hitCounts;
 	extraAssets assets;
 	reqMaterials materials;
 public:
