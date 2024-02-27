@@ -38,10 +38,10 @@ the code is not reasonably working yet
 	- track skill cooldowns
 	- track enemy hp
 	- track friendly hp?
-	- gui?
+	- calc probability to beat quest before starting?
 
 ### gui maybe ever
-	- calc probability to beat quest before starting?
+
 
 
 I am using the data from https://api.atlasacademy.io/docs
