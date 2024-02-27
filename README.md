@@ -39,6 +39,8 @@ the code is not reasonably working yet
 	- track enemy hp
 	- track friendly hp?
 	- gui?
+
+### gui maybe ever
 	- calc probability to beat quest before starting?
 
 
