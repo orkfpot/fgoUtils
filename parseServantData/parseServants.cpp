@@ -7,24 +7,22 @@
 #define WAIT_FOR_VAR_VAL 2
 #define READ_VAR_VAL 3
 
-int main()
+
+std::string parseServants(&fp)
 {
-	std::ifstream fp("servants.json");
-	std::string searchSubject;
-	char b;
-	if(!fp.is_open())
-	{
-		std::cout << "failed to open file" << '\n';
-		return -1;
-	}
-	int x=0;
-	int y=0;
-	int charState = WAIT_FOR_VAL_NAME;
+	
+// this is gonna have to become a loop and a recursive function
 
 
-	if(!fp.get(b))
-		std::cout << "NULL file pointer\n";
-// this is gonna have to become a loop and a tree	
+/*
+ * read file as done here until reach :
+ * when encountered : call self?
+ *
+ * is that really all?
+ *
+ */
+
+
 mainLoop:
 	switch(b) 
 	{
@@ -71,6 +69,25 @@ write:
 skipWrite:
 	if(fp.get(b))
 		goto mainLoop;
+}
+
+int main()
+{
+	std::ifstream fp("servants.json");
+	std::string searchSubject;
+	char b;
+	if(!fp.is_open())
+	{
+		std::cout << "failed to open file" << '\n';
+		return -1;
+	}
+	int x=0;
+	int y=0;
+	int charState = WAIT_FOR_VAL_NAME;
+
+
+	if(!fp.get(b))
+		std::cout << "NULL file pointer\n";
 
 /* irrelevant code as I am changing it to a character by character reading of file
 	while(getline(fp,line))
