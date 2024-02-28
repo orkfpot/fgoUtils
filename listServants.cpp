@@ -9,7 +9,7 @@ int main()
 	std::string line;
 	if(!fp.is_open())
 	{
-		std::cout << "failed to open file" << std::endl;
+		std::cout << "failed to open file" << '\n';
 		return -1;
 	}
 	int x=0;
@@ -23,7 +23,7 @@ int main()
             x++;
             line.erase (0, 19);
 	    line.erase (line.end()-2, 2);
-            std::cout << line << std::endl;
+            std::cout << line << '\n';
         }
     }
 }

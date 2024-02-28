@@ -11,7 +11,7 @@ int main()
     servants.open("servants.json");
     if(!servants.is_open())
     {
-        std::cout << "error opening file servants.json" << std::endl;
+        std::cout << "error opening file servants.json" << '\n';
         return -1;
     }
 

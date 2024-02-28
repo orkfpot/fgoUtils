@@ -2,10 +2,6 @@
 #include <fstream>
 #include <string>
 
-#define WAIT_FOR_VAL_NAME 0
-#define READ_VAR_NAME 1
-#define WAIT_FOR_VAR_VAL 2
-#define READ_VAR_VAL 3
 
 int main()
 {
@@ -17,58 +13,37 @@ int main()
 		std::cout << "failed to open file" << '\n';
 		return -1;
 	}
-	int x=0;
-	int y=0;
-	int charState = WAIT_FOR_VAL_NAME;
+	int x=0, y=0;
+
 
 
 	if(!fp.get(b))
 		std::cout << "NULL file pointer\n";
-// this is gonna have to become a loop and a tree	
-mainLoop:
-	switch(b) 
-	{
-		case '{':
-			y++;
-			x=y-1;
-			break;
-		case '}':
-			y--;
-			x=y;
-			break;
-		case '"':
-			if(charState==READ_VAR_NAME)
-				charState=WAIT_FOR_VAR_VAL;
-			else
-				charState=READ_VAR_NAME;
-			break;
-		case ':':
-			charState=READ_VAR_VAL;
-			break;
-		case ',':
-			charState=WAIT_FOR_VAL_NAME;
-			std::cout << '\n';
-			break;
-
-
-		default:
-			std::cout << b;
-			goto skipWrite;
-	}
-
-write:
-	switch(charState)
-	{
-		case READ_VAR_NAME:
-			std::cout << b;
-			break;
-		case READ_VAR_VAL:
-			std::cout << b;
-		default:
-			break;
-	}
 	
-skipWrite:
+mainLoop:
+	if(b=='{')
+	{
+		y++;
+		x=y-1;
+		goto indent;
+	}
+	if(b=='}')
+	{
+		y--;
+		x=y;
+		goto indent;
+	}
+	std::cout << b;
+	goto skipIndent;
+indent:
+
+	std::cout << '\n';
+	for(int i = 0; i < x; i++)
+		std::cout << "    ";
+	std::cout << b << '\n';
+	for(int i = 0; i < y; i++)
+		std::cout << "    ";
+skipIndent:
 	if(fp.get(b))
 		goto mainLoop;
 

@@ -9,7 +9,7 @@ int Servant::init(std::ifstream &fp, std::string searchSubject)
 	std::string line;
 	if(!fp.is_open())
 	{
-		std::cout << "failed to open file" << std::endl;
+		std::cout << "failed to open file" << '\n';
 		return -1;
 	}
 	int x=0;
@@ -27,7 +27,7 @@ int Servant::init(std::ifstream &fp, std::string searchSubject)
 			x--;
 		}
 	}
-	std::cout << "servant not found" << std::endl;
+	std::cout << "servant not found" << '\n';
 //I want to call a destructor in the constructor if servant is not found.	~this;
 
 //probably best to call a destructor based on the return value
@@ -37,7 +37,7 @@ saveInfo:
 	this->name = searchSubject;
 	while(getline(fp,line))
 	{
-		std::cout << line << std::endl;
+		std::cout << line << '\n';
 
 
 		if(line.find("{") != std::string::npos)
@@ -49,7 +49,7 @@ saveInfo:
 				break;
 		}
 	}
-	std::cout << name << std::endl;
+	std::cout << name << '\n';
 
 	return 0;
 }
