@@ -7,11 +7,13 @@
 #define WAIT_FOR_VAR_VAL 2
 #define READ_VAR_VAL 3
 
-
+// god bless tellg(), seekg() and read()
 int parseServants(std::ifstream &fp, int x = 0, int y = 0)
 {
 	char b;
 	int charState;
+	unsigned long int pos, pos2;
+	int posDiff;
 	while(fp.get(b))
 	{
 		
@@ -20,18 +22,31 @@ int parseServants(std::ifstream &fp, int x = 0, int y = 0)
 			case '{':
 				y++;
 				x=y-1;
-				b = parseServants(fp, x, y);
 				break;
 			case '}':
 				y--;
 				x=y;
-				return 0; 
 				break;
 			case '"':
 				if(charState==READ_VAR_NAME)
+				{
+					char string[posDiff];
+					fp.seekg(pos);
+					fp.read(string, posDiff);
+					fp.seekg(pos2);
+					pos=fp.tellg();
 					charState=WAIT_FOR_VAR_VAL;
+				}
 				else
+				{
+					pos2 = fp.tellg();
+					posDiff=(pos2-pos);
+					char string[posDiff];
+					fp.seekg(pos);
+					fp.read(string, posDiff);
+					fp.seekg(pos2);
 					charState=READ_VAR_NAME;
+				}
 				break;
 			case ':':
 				charState=READ_VAR_VAL;
@@ -46,18 +61,24 @@ int parseServants(std::ifstream &fp, int x = 0, int y = 0)
 				std::cout << b;
 				break;
 		}
-
-
+		
+		/*
 		switch(charState)
 		{
 			case READ_VAR_NAME:
-				std::cout << b;
+				fp.seekg(pos);
+				fp.read(string, posDiff);
+				fp.seekg(pos2);
 				break;
 			case READ_VAR_VAL:
-				std::cout << b;
+				fp.seekg(pos);
+				fp.read(string, posDiff);
+				fp.seekg(pos);
+				break;
 			default:
 				break;
 		}
+		*/
 	}
 	return 0;
 }
@@ -135,9 +156,6 @@ int main()
 		std::cout << "failed to open file" << '\n';
 		return -1;
 	}
-	int x=0;
-	int y=0;
-	int charState = WAIT_FOR_VAL_NAME;
 	parseServants(fp);
 
 
