@@ -25,7 +25,7 @@ int parseServants(std::ifstream &fp, int x = 0, int y = 0)
 			case '}':
 				y--;
 				x=y;
-				b = parseServants(fp, x, y);
+				return 0; 
 				break;
 			case '"':
 				if(charState==READ_VAR_NAME)
