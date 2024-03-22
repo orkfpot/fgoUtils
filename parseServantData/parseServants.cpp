@@ -2,111 +2,55 @@
 #include <fstream>
 #include <string>
 #include <cstdlib>
+#include <stdio.h>
 
-#define READ
-#define WAIT
+#define READ 1
+#define WAIT 0
 
-int writeOut(std::ifstream &fp, int pos1, int pos2)
+int writeOut(std::ifstream &fp, int startPos, int length)
 {
-	int posDiff=(pos2-pos1);
+	int posDiff=(startPos-length);
 	char string[posDiff];
-	fp.seekg(pos1);
+	fp.seekg(startPos);
 	fp.read(string, posDiff);
 	std::cout << string << '\n';
-	return 1;
+	return 0;
 }
 
 
 // god bless tellg(), seekg() and read()
+// I am not turning this into a class to make it a nice recursive method 
 int parseServants(std::ifstream &fp, int x = 0)
 {
 	char b;
 	int pos = 0;
 	int y = x; //	x and y are variables used to track indentation
-	int charState;
-//	skipWrite goes to before the while loop but it continues fp.get(b); at the position that it left of at because C++ is cool like that.
+	int charState = WAIT;
+
 	while(fp.get(b))
 	{
 		switch(b)
 		{
 		case '"':
+
 			if(charState==READ)
 			{
 				charState=WAIT;
 				int pos=fp.tellg();
 				break;
 			}
-			else
-			{
-				charState=0;
-				writeOut(fp, pos, (int)fp.tellg()-1);
-			}
+
+			charState=0;
+			writeOut(fp, pos, (int)fp.tellg()-1);
+			pos = (int)fp.tellg()+1;
+			break;
+
 		default:
 			break;
 		}
 	}
-	return 1;
+	return 0;
 }
-	/*
-skipWrite:
-while(fp.get(b))
-	{
-	
-	switch(b)
-	{
-	case '{':
-		y++;
-		x=y-1;
-		break;
-	case '}':
-		y--;
-		x=y;
-		break;
-	case '"':
-		if(charState==READ_VAR_NAME)
-		{
-			charState=WAIT_FOR_VAR_VAL;
-			goto write;
-		}
-		else
-		{
-			charState=READ_VAR_NAME;
-		pos = fp.tellg();
-		}
-		break;
-	case ':':
-		charState=READ_VAR_VAL;
-		pos = fp.tellg();
-		break;
-	case ',':
-
-		charState=WAIT_FOR_VAL_NAME;
-		goto write;
-		break;
-
-
-	default:
-//		std::cout << b;
-		break;
-	}
-
-	goto skipWrite;
-
-write:
-	pos2 = fp.tellg();
-	posDiff=(pos2-pos);
-	char string[posDiff]; // I do need to free this don't I? after all I create a new one every iteration of the loop and this loop. or does it go out of scope every loop
-		// I think it goes out of scope
-	fp.seekg(pos);
-	fp.read(string, posDiff);
-	fp.seekg(pos2++);
-	pos = fp.tellg();
-	for(int i = 0; i < y; i++)
-		std::cout << "	";
-	std::cout << string << '\n';
-
-	}
-	*/
 
 
 int main()
@@ -121,6 +65,8 @@ int main()
 	}
 
 	parseServants(fp);
+//	writeOut(fp, 200, 200);
+	std::cout << fp.tellg();
 
 	return 0;
 }
