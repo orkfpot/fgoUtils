@@ -3,20 +3,51 @@
 #include <string>
 #include <cstdlib>
 
-#define WAIT_FOR_VAL_NAME 0
-#define READ_VAR_NAME 1
-#define WAIT_FOR_VAR_VAL 2
-#define READ_VAR_VAL 3
+#define READ
+#define WAIT
+
+int writeOut(std::ifstream &fp, int pos1, int pos2)
+{
+	int posDiff=(pos2-pos1);
+	char string[posDiff];
+	fp.seekg(pos1);
+	fp.read(string, posDiff);
+	std::cout << string << '\n';
+	return 1;
+}
+
 
 // god bless tellg(), seekg() and read()
 int parseServants(std::ifstream &fp, int x = 0)
 {
 	char b;
-	unsigned long int pos, pos2;
-	int y = x;
+	int pos = 0;
+	int y = x; //	x and y are variables used to track indentation
 	int charState;
-	int posDiff;
-
+//	skipWrite goes to before the while loop but it continues fp.get(b); at the position that it left of at because C++ is cool like that.
+	while(fp.get(b))
+	{
+		switch(b)
+		{
+		case '"':
+			if(charState==READ)
+			{
+				charState=WAIT;
+				int pos=fp.tellg();
+				break;
+			}
+			else
+			{
+				charState=0;
+				writeOut(fp, pos, (int)fp.tellg()-1);
+			}
+		default:
+			break;
+		}
+	}
+	return 1;
+}
+	/*
 skipWrite:
 while(fp.get(b))
 	{
@@ -40,7 +71,7 @@ while(fp.get(b))
 		else
 		{
 			charState=READ_VAR_NAME;
-			pos = fp.tellg();
+		pos = fp.tellg();
 		}
 		break;
 	case ':':
@@ -48,6 +79,7 @@ while(fp.get(b))
 		pos = fp.tellg();
 		break;
 	case ',':
+
 		charState=WAIT_FOR_VAL_NAME;
 		goto write;
 		break;
@@ -64,21 +96,24 @@ write:
 	pos2 = fp.tellg();
 	posDiff=(pos2-pos);
 	char string[posDiff]; // I do need to free this don't I? after all I create a new one every iteration of the loop and this loop. or does it go out of scope every loop
+		// I think it goes out of scope
 	fp.seekg(pos);
 	fp.read(string, posDiff);
-	fp.seekg(pos2);
+	fp.seekg(pos2++);
+	pos = fp.tellg();
+	for(int i = 0; i < y; i++)
+		std::cout << "	";
 	std::cout << string << '\n';
 
 	}
-	return 0;
-}
+	*/
+
 
 int main()
 {
 	std::ifstream fp("servants.json");
-	std::string searchSubject;
-	char b;
-
+	std::cin.clear();
+	fflush(stdin);
 	if(!fp.is_open())
 	{
 		std::cout << "failed to open file" << '\n';
