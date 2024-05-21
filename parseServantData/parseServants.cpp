@@ -7,19 +7,24 @@
 #define READ 1
 #define WAIT 0
 
-int writeOut(std::ifstream &fp, int startPos, int length)
+int writeOut(std::ifstream &fp, int startPos, int endPos)
 {
-	int posDiff=(startPos-length);
-	char string[posDiff];
+	endPos--;
+	int posDiff=(endPos-startPos);
+	char* string;
+	string  = (char*) malloc(posDiff*sizeof(char));
 	fp.seekg(startPos);
 	fp.read(string, posDiff);
+	std::cout.clear();
 	std::cout << string << '\n';
+//	std::cout << "startPos" << startPos << std::endl << "endPos"<< endPos << std::endl << "posDiff" << posDiff << std::endl << std::endl;
+	free(string);
 	return 0;
 }
 
 
 // god bless tellg(), seekg() and read()
-// I am not turning this into a class to make it a nice recursive method 
+// I am not turning this into a class to make it a nice recursive method
 int parseServants(std::ifstream &fp, int x = 0)
 {
 	char b;
@@ -33,16 +38,16 @@ int parseServants(std::ifstream &fp, int x = 0)
 		{
 		case '"':
 
-			if(charState==READ)
+			if(charState==WAIT)
 			{
-				charState=WAIT;
-				int pos=fp.tellg();
+				charState=READ;
+				pos=fp.tellg();
 				break;
 			}
 
-			charState=0;
-			writeOut(fp, pos, (int)fp.tellg()-1);
-			pos = (int)fp.tellg()+1;
+			charState=WAIT;
+			writeOut(fp, pos, (int)fp.tellg());
+			pos = (int)fp.tellg();
 			break;
 
 		default:
@@ -63,9 +68,10 @@ int main()
 		std::cout << "failed to open file" << '\n';
 		return -1;
 	}
+	
 
 	parseServants(fp);
-//	writeOut(fp, 200, 200);
+//	writeOut(fp, 3, 5);
 	std::cout << fp.tellg();
 
 	return 0;
